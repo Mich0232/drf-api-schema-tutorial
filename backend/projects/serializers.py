@@ -17,3 +17,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     def get_extra_field(self, instance: Task) -> int:
         return id(instance)
+
+
+class TaskNotificationInputSerializer(serializers.Serializer):
+    email = serializers.EmailField()

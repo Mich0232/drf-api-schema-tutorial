@@ -175,6 +175,34 @@ paths:
       responses:
         '204':
           description: No response body
+  /api/tasks/notify/:
+    post:
+      operationId: tasks_notify_create
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskNotificationInput'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TaskNotificationInput'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TaskNotificationInput'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskNotificationResponse'
+          description: ''
 components:
   schemas:
     DepartmentEnum:
@@ -248,6 +276,21 @@ components:
       - name
       - pk
       - project
+    TaskNotificationInput:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    TaskNotificationResponse:
+      type: object
+      properties:
+        customField:
+          type: string
+      required:
+      - customField
   securitySchemes:
     basicAuth:
       type: http

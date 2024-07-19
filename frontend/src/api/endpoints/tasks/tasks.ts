@@ -7,7 +7,7 @@
  */
 import * as axios from 'axios';
 import type { AxiosRequestConfig, AxiosResponse } from 'axios';
-import type { PatchedTask, Task } from '../yourProjectAPI.schemas';
+import type { PatchedTask, Task, TaskNotificationInput, TaskNotificationResponse } from '../yourProjectAPI.schemas';
 
 // https://stackoverflow.com/questions/49579094/typescript-conditional-types-filter-out-readonly-properties-pick-only-requir/49579497#49579497
 type IfEquals<X, Y, A = X, B = never> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? A : B;
@@ -58,9 +58,16 @@ export const tasksPartialUpdate = <TData = AxiosResponse<Task>>(
 export const tasksDestroy = <TData = AxiosResponse<void>>(id: number, options?: AxiosRequestConfig): Promise<TData> => {
   return axios.default.delete(`/api/tasks/${id}/`, options);
 };
+export const tasksNotifyCreate = <TData = AxiosResponse<TaskNotificationResponse>>(
+  taskNotificationInput: TaskNotificationInput,
+  options?: AxiosRequestConfig,
+): Promise<TData> => {
+  return axios.default.post(`/api/tasks/notify/`, taskNotificationInput, options);
+};
 export type TasksListResult = AxiosResponse<Task[]>;
 export type TasksCreateResult = AxiosResponse<Task>;
 export type TasksRetrieveResult = AxiosResponse<Task>;
 export type TasksUpdateResult = AxiosResponse<Task>;
 export type TasksPartialUpdateResult = AxiosResponse<Task>;
 export type TasksDestroyResult = AxiosResponse<void>;
+export type TasksNotifyCreateResult = AxiosResponse<TaskNotificationResponse>;

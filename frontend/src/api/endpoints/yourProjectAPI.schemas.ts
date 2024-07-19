@@ -5,6 +5,14 @@
  * Your project description
  * OpenAPI spec version: 1.0.0
  */
+export interface TaskNotificationResponse {
+  customField: string;
+}
+
+export interface TaskNotificationInput {
+  email: string;
+}
+
 export interface Task {
   /** @nullable */
   assignee?: number | null;
