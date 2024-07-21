@@ -136,5 +136,8 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "Your project description",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
-    # OTHER SETTINGS
+    # list of authentication/permission classes for spectacular's views.
+    "SERVE_PERMISSIONS": ["rest_framework.permissions.IsAdminUser"],
+    # None will default to DRF's AUTHENTICATION_CLASSES
+    "SERVE_AUTHENTICATION": None,
 }

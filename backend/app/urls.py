@@ -17,6 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from projects.views import ProjectsViewSet, TasksViewSet
 from rest_framework.routers import DefaultRouter
 
@@ -24,4 +25,9 @@ api_router = DefaultRouter()
 api_router.register("projects", ProjectsViewSet, basename="projects")
 api_router.register("tasks", TasksViewSet, basename="tasks")
 
-urlpatterns = [path("admin/", admin.site.urls), path("api/", include(api_router.urls))]
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("api/", include(api_router.urls)),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("api/docs/", SpectacularSwaggerView.as_view(url_name="schema"), name="docs"),
+]
